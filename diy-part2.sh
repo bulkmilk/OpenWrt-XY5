@@ -11,14 +11,14 @@
 #
 
 # Modify default IP
-sed -i 's/192.168.1.1/192.168.10.254/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.11.254/g' package/base-files/files/bin/config_generate
 #
 sed -i "3i uci commit network\n" package/lean/default-settings/files/zzz-default-settings
 sed -i "3i uci set network.lan.delegate='0'" package/lean/default-settings/files/zzz-default-settings
 sed -i "3i uci set network.lan.dns='114.114.114.114'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.lan.gateway='192.168.10.254'" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set network.lan.gateway='192.168.11.254'" package/lean/default-settings/files/zzz-default-settings
 sed -i "3i uci set network.lan.netmask='255.255.255.0'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.lan.ipaddr='192.168.10.254'" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set network.lan.ipaddr='192.168.11.254'" package/lean/default-settings/files/zzz-default-settings
 sed -i "3i uci set network.wan.delegate='0'" package/lean/default-settings/files/zzz-default-settings
 sed -i "3i uci set network.wan.proto='pppoe'" package/lean/default-settings/files/zzz-default-settings
 
