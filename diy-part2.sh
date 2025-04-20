@@ -11,21 +11,21 @@
 #
 
 # Modify default IP
-sed -i 's/192.168.1.1/192.168.11.254/g' package/base-files/files/bin/config_generate
-#
-sed -i "3i uci commit network\n" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.lan.delegate='0'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.lan.dns='114.114.114.114'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.lan.gateway='192.168.11.254'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.lan.netmask='255.255.255.0'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.lan.ipaddr='192.168.11.254'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.wan.delegate='0'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set network.wan.proto='pppoe'" package/lean/default-settings/files/zzz-default-settings
+sed -i 's/192.168.1.1/192.168.19.254/g' package/base-files/files/bin/config_generate
 
-sed -i "3i uci commit dhcp\n" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set dhcp.lan.leasetime='12h'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set dhcp.lan.limit='50'" package/lean/default-settings/files/zzz-default-settings
-sed -i "3i uci set dhcp.lan.start='101'" package/lean/default-settings/files/zzz-default-settings
+# 版本号里显示一个自己的名字
+sed -i "s/OpenWrt/BMilk build $(TZ=UTC-8 date "+%y.%m.%d") @/g" package/lean/default-settings/files/zzz-default-settings
+
+# 修改版本为编译日期
+#date_version=$(date +"%y.%m.%d")
+#orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
+#sed -i "s/${orig_version}/R${date_version} by Haiibo/g" package/lean/default-settings/files/zzz-default-settings
+
+# 设置密码为空
+sed -i 's@.*CYXluq4wUazHjmCDBCqXF*@#&@g' package/lean/default-settings/files/zzz-default-settings
+
+# 修改本地时间格式
+sed -i 's/os.date()/os.date("%a %Y-%m-%d %H:%M:%S")/g' package/lean/autocore/files/*/index.htm
 
 # Modify default theme
 #sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
@@ -33,8 +33,15 @@ sed -i "3i uci set dhcp.lan.start='101'" package/lean/default-settings/files/zzz
 # Modify hostname
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
-# 设置密码为空
-#sed -i 's@.*CYXluq4wUazHjmCDBCqXF*@#&@g' package/lean/default-settings/files/zzz-default-settings
-
-# 修改本地时间格式
-sed -i 's/os.date()/os.date("%a %Y-%m-%d %H:%M:%S")/g' package/lean/autocore/files/*/index.htm
+#
+sed -i "3i uci commit network\n" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set network.lan.delegate='0'" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set network.lan.dns='114.114.114.114'" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set network.lan.gateway='192.168.19.254'" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set network.lan.netmask='255.255.255.0'" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set network.lan.ipaddr='192.168.19.254'" package/lean/default-settings/files/zzz-default-settings
+#
+sed -i "3i uci commit dhcp\n" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set dhcp.lan.leasetime='12h'" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set dhcp.lan.limit='50'" package/lean/default-settings/files/zzz-default-settings
+sed -i "3i uci set dhcp.lan.start='101'" package/lean/default-settings/files/zzz-default-settings
